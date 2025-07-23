@@ -65,7 +65,7 @@ func main() {
 
 ### Caching
 
-For performance-critical applications, you can use the cached compiler:
+For performance-critical applications, you can use the cached compiler. This is useful when you are repeatedly building the same regex pattern in different parts of your application.
 
 ```go
 package main
@@ -76,16 +76,22 @@ import (
 )
 
 func main() {
-	builder := tinyrebuilder.New().Literal("some_pattern")
+	// The first call compiles and caches the regex.
+	re1 := tinyrebuilder.New().Literal("some_pattern").MustCompileWithCache()
 
-	// First compilation is cached.
-	re1 := builder.MustCompileWithCache()
+	// The second call with the same pattern will retrieve the regex from the cache.
+	re2 := tinyrebuilder.New().Literal("some_pattern").MustCompileWithCache()
 
-	// Subsequent compilations of the same pattern are retrieved from the cache.
-	re2 := builder.MustCompileWithCache()
-
-	// re1 and re2 are the same object.
+	// re1 and re2 are the same underlying regexp.Regexp object.
 	fmt.Println(re1 == re2) // true
+
+	// You can also purge the cache if needed.
+	tinyrebuilder.PurgeCache()
+
+	// After purging, a new regex object is compiled and cached.
+	re3 := tinyrebuilder.New().Literal("some_pattern").MustCompileWithCache()
+
+	fmt.Println(re1 == re3) // false
 }
 ```
 
