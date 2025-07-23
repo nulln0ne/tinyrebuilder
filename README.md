@@ -1,6 +1,6 @@
 # Tiny Rebuilder
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/nulln0ne/tinyrebuilder.svg)](https://pkg.go.dev/github.com/nulln0ne/tinyrebuilder)
+[![Go Reference](https://github.com/nulln0ne/tinyrebuilder/blob/main/assets/logo.png?raw=true)](https://pkg.go.dev/github.com/nulln0ne/tinyrebuilder)
 
 `tinyrebuilder` is a fluent, high-performance, and cacheable regular expression builder for Go. It wraps the standard library's `regexp` package, offering a more expressive and readable way to construct complex regex patterns while adding performance optimizations like caching.
 
